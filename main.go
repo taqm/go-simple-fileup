@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 )
@@ -50,6 +51,7 @@ func upload(w http.ResponseWriter, r *http.Request) {
 		if p.FileName() == "" {
 			continue
 		}
+		log.Println("uploaded: " + p.FileName())
 
 		dst, err := os.Create("./dist/" + p.FileName())
 
@@ -64,7 +66,7 @@ func upload(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 	}
-	http.Redirect(w, r, "./form.html", http.StatusFound)
+	http.Redirect(w, r, "./", http.StatusFound)
 }
 
 func main() {
